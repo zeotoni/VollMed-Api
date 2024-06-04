@@ -1,4 +1,24 @@
 package med.voll.vollmed_api.address;
 
-public record AddressData(String street, String postalCode, String city, String state, String complement, String number) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
+public record AddressData(
+
+        @NotBlank
+        String street,
+
+        @NotBlank
+        @Pattern(regexp = "\\d{8}")
+        String postalCode,
+
+        @NotBlank
+        String city,
+
+        @NotBlank
+        String state,
+
+        String complement,
+
+        String number) {
 }

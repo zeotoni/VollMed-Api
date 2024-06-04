@@ -1,3 +1,15 @@
+spring:
+  datasource:
+    url: "${DATABASE_URL}"
+    username: "${DATABASE_USERNAME}"
+    password: "${DATABASE_PASSWORD}"
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.jdbc.lab.non_contextual_creation: true
+      hibernate.transaction.jta.platform: null
+
 server:
   port: 8080
   error:
