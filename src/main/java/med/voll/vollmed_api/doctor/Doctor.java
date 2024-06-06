@@ -33,7 +33,7 @@ public class Doctor {
     private Specialty specialty;
 
     @Embedded
-    private Address adress;
+    private Address address;
 
     public Doctor(DoctorRegistrationData data) {
         this.name = data.name();
@@ -41,6 +41,6 @@ public class Doctor {
         this.crm = data.crm();
         this.phone = data.phone();
         this.specialty = data.specialty();
-        this.adress = new Address(data.address());
+        this.address = new Address(data.address());
     }
 }
