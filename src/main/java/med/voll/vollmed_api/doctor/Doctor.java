@@ -35,7 +35,7 @@ public class Doctor {
     @Embedded
     private Address adress;
 
-    public Doctor(DataRegisterDoctors data) {
+    public Doctor(DoctorRegistrationData data) {
         this.name = data.name();
         this.email = data.email();
         this.crm = data.crm();
