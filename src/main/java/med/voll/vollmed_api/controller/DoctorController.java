@@ -2,9 +2,8 @@ package med.voll.vollmed_api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.vollmed_api.doctor.DoctorRegistrationData;
 import med.voll.vollmed_api.doctor.Doctor;
-import med.voll.vollmed_api.doctor.DoctorListingData;
+import med.voll.vollmed_api.doctor.DoctorRegistrationData;
 import med.voll.vollmed_api.doctor.DoctorRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +31,7 @@ public class DoctorController {
     }
 
     @GetMapping
-    public Page<DoctorListingData> list(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
-        return repository.findAll(pagination).map(DoctorListingData::new);
+    public Page<Doctor> listWithPagination(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
+        return repository.findAll(pagination);
     }
 }
