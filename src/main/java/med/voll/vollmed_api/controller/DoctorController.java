@@ -36,7 +36,7 @@ public class DoctorController {
 
     @GetMapping
     public Page<Doctor> listWithPagination(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
-        return repository.findAll(pagination);
+        return repository.findAllByActiveTrue(pagination);
     }
 
     @PutMapping
