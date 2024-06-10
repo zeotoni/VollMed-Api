@@ -5,11 +5,13 @@ import jakarta.validation.Valid;
 import med.voll.vollmed_api.doctor.Doctor;
 import med.voll.vollmed_api.doctor.DoctorRegistrationData;
 import med.voll.vollmed_api.doctor.DoctorRepository;
+import med.voll.vollmed_api.doctor.DoctorUpdateData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,5 +35,12 @@ public class DoctorController {
     @GetMapping
     public Page<Doctor> listWithPagination(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
         return repository.findAll(pagination);
+    }
+
+    @PutMapping
+    @Transactional
+    public void update(@RequestBody @Valid DoctorUpdateData data) {
+        Doctor doctor = repository.getReferenceById(data.id());
+        doctor.updateData(data);
     }
 }
