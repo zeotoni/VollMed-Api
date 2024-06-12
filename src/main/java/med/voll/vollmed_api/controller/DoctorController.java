@@ -67,4 +67,10 @@ public class DoctorController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DoctorDetailData> detail(@PathVariable Long id) {
+        Doctor doctor = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DoctorDetailData(doctor));
+    }
 }
