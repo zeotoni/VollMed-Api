@@ -2,11 +2,11 @@ package med.voll.vollmed_api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.vollmed_api.doctor.Doctor;
-import med.voll.vollmed_api.doctor.DoctorDetailData;
-import med.voll.vollmed_api.doctor.DoctorRegistrationData;
-import med.voll.vollmed_api.doctor.DoctorRepository;
-import med.voll.vollmed_api.doctor.DoctorUpdateData;
+import med.voll.vollmed_api.domain.doctor.Doctor;
+import med.voll.vollmed_api.domain.doctor.DoctorDetailData;
+import med.voll.vollmed_api.domain.doctor.DoctorRegistrationData;
+import med.voll.vollmed_api.domain.doctor.DoctorRepository;
+import med.voll.vollmed_api.domain.doctor.DoctorUpdateData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
