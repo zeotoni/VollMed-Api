@@ -14,3 +14,8 @@ server:
   port: 8080
   error:
     include-stacktrace: never
+
+api:
+  security:
+    token:
+      secret: "${JWT_SECRET}"
