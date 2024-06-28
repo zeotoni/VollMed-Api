@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS patients (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    cpf CHAR(11) NOT NULL UNIQUE,
+    phone VARCHAR(20) NOT NULL,
+    street VARCHAR(100) NOT NULL,
+    postal_code CHAR(9) NOT NULL,
+    complement VARCHAR(100),
+    city VARCHAR(100) NOT NULL,
+    state CHAR(2) NOT NULL,
+    number VARCHAR(20)
+);
