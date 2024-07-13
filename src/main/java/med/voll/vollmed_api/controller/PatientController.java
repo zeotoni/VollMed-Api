@@ -46,7 +46,7 @@ public class PatientController {
 
     @GetMapping
     public ResponseEntity<Page<Patient>> listingWithPagination(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
-        Page<Patient> page = repository.findAll(pagination);
+        Page<Patient> page = repository.findAllByActiveTrue(pagination);
         return ResponseEntity.ok(page);
     }
 
@@ -69,7 +69,7 @@ public class PatientController {
     @Transactional
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         Patient patient = repository.getReferenceById(id);
-        repository.delete(patient);
+        patient.delete();
 
         return ResponseEntity.noContent().build();
     }

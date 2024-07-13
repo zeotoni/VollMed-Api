@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import med.voll.vollmed_api.domain.address.Address;
 
 @Table(name = "patients")
-@Entity(name = "Patients")
+@Entity(name = "Patient")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,12 +31,15 @@ public class Patient {
     @Embedded
     private Address address;
 
+    private boolean active;
+
     public Patient(PatientRegistrationData data) {
         this.name = data.name();
         this.email = data.email();
         this.cpf = data.cpf();
         this.phone = data.phone();
         this.address = new Address(data.address());
+        this.active = true;
     }
 
     public void updateData(PatientUpdateData data) {
@@ -51,5 +54,9 @@ public class Patient {
         if (data.address() != null) {
             this.address.updateData(data.address());
         }
+    }
+
+    public void delete() {
+        this.active = false;
     }
 }
