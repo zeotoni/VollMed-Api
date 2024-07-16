@@ -1,5 +1,6 @@
 package med.voll.vollmed_api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.vollmed_api.domain.patient.Patient;
@@ -25,6 +26,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("patients")
+@SecurityRequirement(name = "bearer-key")
 public class PatientController {
 
     private final PatientRepository repository;
