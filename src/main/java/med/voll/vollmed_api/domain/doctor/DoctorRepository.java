@@ -25,7 +25,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
             order by rand()
             limit 1
             """)
-    Doctor chooseFreeRandomDoctor(Specialty specialty, LocalDateTime date);
+    Doctor chooseAvailableRandomDoctor(Specialty specialty, LocalDateTime date);
 
     @Query("""
             select d.active

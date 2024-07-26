@@ -109,6 +109,6 @@ public class AppointmentSchedule {
             throw new EntityNotFoundException("Specialty is mandatory when the doctor is not chosen");
         }
 
-        return doctorRepository.chooseFreeRandomDoctor(data.specialty(), data.date());
+        return doctorRepository.chooseAvailableRandomDoctor(data.specialty(), data.date());
     }
 }
