@@ -9,7 +9,10 @@ spring:
     properties:
       hibernate.jdbc.lab.non_contextual_creation: true
       hibernate.transaction.jta.platform: null
-
+  flyway:
+    locations:
+      - classpath:db/migration
+      - classpath:db/migration/dev
 server:
   port: 8080
   error:
