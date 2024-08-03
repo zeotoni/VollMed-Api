@@ -11,12 +11,14 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import med.voll.vollmed_api.domain.address.Address;
 
 
 @Table(name = "doctors")
 @Entity(name = "Doctor")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -45,23 +47,5 @@ public class Doctor {
         this.specialty = data.specialty();
         this.address = new Address(data.address());
         this.active = true;
-    }
-
-    public void updateData(DoctorUpdateData data) {
-        if (data.name() != null) {
-            this.name = data.name();
-        }
-
-        if (data.phone() != null) {
-            this.phone = data.phone();
-        }
-
-        if (data.address() != null) {
-            this.address.updateData(data.address());
-        }
-    }
-
-    public void delete() {
-        this.active = false;
     }
 }
