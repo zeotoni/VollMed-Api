@@ -4,9 +4,11 @@ import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Embeddable
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
@@ -25,31 +27,5 @@ public class Address {
         this.postalCode = data.postalCode();
         this.city = data.city();
         this.state = data.state();
-    }
-
-    public void updateData(AddressData data) {
-        if (data.street() != null) {
-            this.street = data.street();
-        }
-
-        if (data.number() != null) {
-            this.number = data.number();
-        }
-
-        if (data.complement() != null) {
-            this.complement = data.complement();
-        }
-
-        if (data.postalCode() != null) {
-            this.postalCode = data.postalCode();
-        }
-
-        if (data.city() != null) {
-            this.city = data.city();
-        }
-
-        if (data.state() != null) {
-            this.state = data.state();
-        }
     }
 }
