@@ -1,12 +1,11 @@
 package med.voll.vollmed_api.controller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.vollmed_api.domain.patient.Patient;
 import med.voll.vollmed_api.domain.patient.PatientDetailData;
 import med.voll.vollmed_api.domain.patient.PatientRegistrationData;
-import med.voll.vollmed_api.domain.patient.PatientRepository;
+import med.voll.vollmed_api.domain.patient.PatientService;
 import med.voll.vollmed_api.domain.patient.PatientUpdateData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,57 +21,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
-
 @RestController
 @RequestMapping("patients")
 @SecurityRequirement(name = "bearer-key")
 public class PatientController {
 
-    private final PatientRepository repository;
+    private final PatientService patientService;
 
-    public PatientController(PatientRepository repository) {
-        this.repository = repository;
+    public PatientController(PatientService patientService) {
+        this.patientService = patientService;
     }
 
     @PostMapping
-    @Transactional
-    public ResponseEntity<PatientDetailData> register(@RequestBody @Valid PatientRegistrationData data, UriComponentsBuilder uriBuilder) {
-        Patient patient = new Patient(data);
-        repository.save(patient);
-
-        URI uri = uriBuilder.path("/patients/{id}").buildAndExpand(patient.getId()).toUri();
-
-        return ResponseEntity.created(uri).body(new PatientDetailData(patient));
+    public ResponseEntity<PatientDetailData> registerPatient(@RequestBody @Valid PatientRegistrationData data, UriComponentsBuilder uriBuilder) {
+        Patient patient = patientService.registerPatient(data);
+        return ResponseEntity.created(patientService.getPatientUri(patient.getId(), uriBuilder)).body(new PatientDetailData(patient));
     }
 
     @GetMapping
-    public ResponseEntity<Page<Patient>> listingWithPagination(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
-        Page<Patient> page = repository.findAllByActiveTrue(pagination);
+    public ResponseEntity<Page<Patient>> listPatients(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
+        Page<Patient> page = patientService.listPatients(pagination);
         return ResponseEntity.ok(page);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PatientDetailData> detail(@PathVariable Long id) {
-        Patient patient = repository.getReferenceById(id);
-        return ResponseEntity.ok(new PatientDetailData(patient));
+    public ResponseEntity<PatientDetailData> getPatientById(@PathVariable Long id) {
+        return ResponseEntity.ok(patientService.getPatientById(id));
     }
 
     @PutMapping
-    @Transactional
-    public ResponseEntity<PatientDetailData> update(@RequestBody @Valid PatientUpdateData data) {
-        Patient patient = repository.getReferenceById(data.id());
-        patient.updateData(data);
-
-        return ResponseEntity.ok(new PatientDetailData(patient));
+    public ResponseEntity<PatientDetailData> updatePatient(@RequestBody @Valid PatientUpdateData data) {
+        return ResponseEntity.ok(patientService.updatePatient(data));
     }
 
     @DeleteMapping("/{id}")
-    @Transactional
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        Patient patient = repository.getReferenceById(id);
-        patient.delete();
-
+    public ResponseEntity<Void> deletePatient(@PathVariable Long id) {
+        patientService.deletePatient(id);
         return ResponseEntity.noContent().build();
     }
 }
